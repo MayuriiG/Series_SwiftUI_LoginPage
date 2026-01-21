@@ -1,0 +1,72 @@
+//
+//  LoginScreen.swift
+//  Github_LoginPAGE_Swiftui
+//
+//  Created by user252002 on 1/21/26.
+
+
+import SwiftUI
+
+
+struct LoginScreen : View {
+    @State private var userName: String = ""
+    @State private var password: String = ""
+    @State private var tapped = false
+   // let black = userName.isEmpty || password.isEmpty
+    
+    var body: some View {
+       // Text("")
+        VStack(spacing:30){
+            
+            Image(systemName: (userName.isEmpty || password.isEmpty) ? "person.circle.fill" : "checkmark.seal.fill")
+                .resizable().frame(width: 100,height: 100)
+                .foregroundColor(userName.isEmpty || password.isEmpty ? .black : .pink)
+                .opacity(userName.isEmpty || password.isEmpty ? 0.5 : 0.2)
+              
+    
+            Text("Login")
+                . font(.largeTitle).fontWeight(.bold)
+            
+            TextField("UserName",text: $userName)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .autocapitalization(.none)
+            
+            SecureField("Password",text: $password)
+                .textFieldStyle(RoundedBorderTextFieldStyle()).padding(.bottom)
+ 
+            if !userName.isEmpty && !password.isEmpty {
+                Button( "Login"){
+                    print("Loggin")
+                    
+                    withAnimation(.buttonTap){
+                        tapped.toggle()
+                    }
+                       /* withAnimation(.spring(response:0.25,dampingFraction:0.6)){
+                            tapped.toggle() }*/
+                            
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.blue.opacity(0.60))
+                .foregroundStyle(.white)
+                .cornerRadius(10)
+            }
+         Spacer()
+            
+        }.padding()
+            //.animation(.easeIn)
+        
+    }
+   
+}
+
+extension Animation {
+    static let buttonTap = Animation.spring(response: 0.25,
+              dampingFraction: 0.6, blendDuration: 0)
+    static let appear  = Animation.easeInOut(duration:0.25)
+    
+}
+
+#Preview {
+    LoginScreen()
+}
