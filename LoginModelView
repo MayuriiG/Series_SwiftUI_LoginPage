@@ -1,0 +1,57 @@
+//  LoginModelView.swift
+//  Github_LoginPAGE_Swiftui
+//
+//  Created by Mayurii on 1/22/26.
+//
+//Model -loginResponse
+//View -Login View
+//ViewModel- LoginModelView
+//LoginDemoApp
+
+
+import Foundation
+
+
+class LoginModelView: ObservableObject{
+    
+    @Published var email = ""
+    @Published var pass = ""
+    @Published var mess = ""
+    @Published var isSuccess: Bool = false
+    //@Published var token = ""
+    
+    //ViewMOdel = HOLD USERNAME & 7PASSWORD
+    //Call Dummy API
+    //Set Messge
+    //Print JSON in Console
+    
+    @MainActor
+    func loginCall() async {
+        
+        let urlString = "https://dummyjson.com/users"
+        guard let url = URL(string: urlString) else { print("Wrong")
+            return }
+        
+        do{
+            let (data,response) = try await
+              URLSession.shared.data(from:url)
+                 if let httpResp = response as? HTTPURLResponse{
+                    if httpResp.statusCode == 200{
+                    
+                    print(String(data:data,encoding: .utf8) ?? "")
+                    mess = "Success"; isSuccess = true
+                 }
+             }else{
+                   
+                   mess = "Failed";isSuccess = false
+               }
+            
+        }catch{
+            
+            mess = "Failed";isSuccess = false
+        }
+    
+     }
+   }
+    
+
