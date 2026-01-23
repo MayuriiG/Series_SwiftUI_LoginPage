@@ -1,0 +1,59 @@
+
+
+struct LoginView: View {
+    
+    @StateObject private var viewModel = LoginModelView()
+    
+    //DarkMode
+    @State private var isDarkMode: Bool = false
+    
+    
+    var body: some View {
+        VStack{
+            Text("Login").font(.largeTitle)
+            TextField("Email",text: $viewModel.email).textFieldStyle(RoundedBorderTextFieldStyle())
+            SecureField("Password",text: $viewModel.pass).textFieldStyle(RoundedBorderTextFieldStyle())
+            
+           
+            Button("Login"){
+                if !viewModel.email.isEmpty && !viewModel.pass.isEmpty{
+                    
+                    Task{
+                        print("Button")
+                        await viewModel.loginCall()
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .padding().background(Color.blue.opacity(0.60))
+            .foregroundStyle(.white).cornerRadius(10)
+            .allowsHitTesting(true)
+            
+            Text(viewModel.mess).foregroundColor(.green).padding()
+          /*  Text(viewModel.token).font(.largeTitle).multilineTextAlignment(.center)*/
+            
+            //Darkmode
+            
+            Toggle(isOn: $isDarkMode){
+                Text(isDarkMode ? "DarkMode": "LightMode").font(.headline)
+            }.toggleStyle(SwitchToggleStyle(tint: .blue))
+                .padding()
+            
+        }.padding()
+        //Dark color
+            .frame(maxWidth: .infinity,maxHeight: .infinity)
+            .background(isDarkMode ?   Color.black :Color.white).edgesIgnoringSafeArea(.all)
+            .preferredColorScheme(isDarkMode ?  .dark : .light)
+    }
+}
+
+struct LoginView_preview : PreviewProvider{
+    static var previews: some View {
+        
+        LoginView()
+    }
+ }
+
+#Preview {
+    LoginView()
+}
