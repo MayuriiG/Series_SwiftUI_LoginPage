@@ -1,0 +1,43 @@
+import SwiftUI
+
+struct LoopingCard: View {
+
+    let images = ["1", "2", "3", "4"]
+    @State private var index = 0
+
+    var body: some View {
+        ZStack {
+
+            // Back card
+            Image(images[nextIndex])
+                .resizable()
+                .scaledToFill()
+                .frame(width: 280, height: 380)
+                .cornerRadius(20)
+                .scaleEffect(0.95)
+                .offset(y: 12)
+
+            // Front card
+            Image(images[index])
+                .resizable()
+                .scaledToFill()
+                .frame(width: 300, height: 400)
+                .cornerRadius(20)
+                .shadow(radius: 8)
+        }
+        .onTapGesture {
+            withAnimation(.easeInOut) {
+                index = nextIndex
+            }
+        }
+    }
+
+    var nextIndex: Int {
+        (index + 1) % images.count
+    }
+}
+#Preview {
+    LoopingCard()
+}
+
+
