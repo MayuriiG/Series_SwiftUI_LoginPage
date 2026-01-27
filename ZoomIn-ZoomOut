@@ -1,0 +1,54 @@
+//
+//  ZoomOutImage.swift
+//  Github_LoginPAGE_Swiftui
+//
+//  Created by user252002 on 1/27/26.
+//
+
+import SwiftUI
+
+
+struct ZoomOutImage : View{
+    
+    @State private var zoomed  = false
+    
+    var body: some View{
+        
+        ZStack{
+            Color.white.opacity(zoomed ?  1.5 : 0).ignoresSafeArea().animation(.easeInOut,value: zoomed)
+            Image("6").resizable().aspectRatio(contentMode: zoomed ? .fit : .fill)
+                .frame(width: zoomed ?  UIScreen.main.bounds.width : 130,height: zoomed ? UIScreen.main.bounds.height * 0.5 : 130)
+            
+                .cornerRadius(zoomed ?  0 : 65 )
+                .shadow(radius: 19)
+                .overlay(alignment: .top){
+                    
+                
+            if zoomed{
+                VStack{
+                    Text("Hey !!")
+                    Text("Mayurii")
+                }
+                .font(.custom("Georgia-Italic", size: 24))
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(.black.opacity(0.5))
+                        .cornerRadius(20)
+                        .padding(.top,20)
+                }
+             }
+         }
+        
+        .onTapGesture {
+            withAnimation(.spring(response: 0.4,dampingFraction: 0.8)){
+                zoomed.toggle()
+            }
+        }
+    }
+}
+    
+
+
+    #Preview{
+        ZoomOutImage()
+    }
