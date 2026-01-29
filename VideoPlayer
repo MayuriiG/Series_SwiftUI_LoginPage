@@ -1,0 +1,11 @@
+Video player
+
+
+struct VideoPlayer {
+
+var like : Bool
+var view : Bool
+
+
+
+}
