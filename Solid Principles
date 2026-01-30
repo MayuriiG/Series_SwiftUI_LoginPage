@@ -1,0 +1,82 @@
+SOLID PRINCIPLES ---------------Single Responsibility 
+
+
+import UIKit
+class ViewController: UIViewController {
+
+   // UI  =viewController
+   // login flow  change  =ViewModel_Api = cordinator 
+    //Validation
+
+    @IBOutlet weak var emailIDTextField: UITextField!
+    @IBOutlet weak var emailid: UILabel!
+    @IBOutlet weak var password: UILabel!
+    @IBOutlet weak var passwordIDField: UITextField!
+    @IBOutlet weak var LOGIN: UIButton!
+    
+    let viewModel = ViewModel_Api()
+  
+    ///onlyy ui + UI + UI _ UI _ UI _ UI    ------ give data to View Model ----
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        
+    }
+    
+    @IBAction func loginSubmit(_ sender: Any) {
+    //Take Variable from
+        viewModel.emailD = emailIDTextField.text ?? ""
+        viewModel.password = passwordIDField.text ?? ""
+        print("Button Click")
+        print(viewModel.emailD)
+        print(viewModel.password)
+}
+}
+------------------------------------------ViewModel_API ---------------------------
+import UIKit
+import Foundation
+
+//BUsines logic
+//No inheritance 
+
+class ViewModel_Api {
+    
+    // it doesnt pull Data from UIvcontroller
+   // screen State - NOOOOOOoooooooo UI
+    
+    
+    var emailD  = ""
+    var password = ""
+
+    func validateToNext() -> String? {
+           return Validation.validateTF(_email : emailD,_pass: password)
+    }
+  }
+------------------------------------Validation----------------------
+   //ViewModel
+Import UIKit
+class Validation{
+    
+  
+    //Return string : 1) errror Show 2) for mvalidation 3) Screen required feedback
+    // return BOol - 1)Enable /Disable Button 2) on;y valide /not
+    
+    static func validateTF(_email : String, _pass : String) -> String? {
+      //  func validateTF(_emaimail: String, _pass: String) ->String{
+        
+        if _email.isEmpty || _pass.isEmpty {
+            return "Field cann't br Empty "
+        }
+        if !_email.contains("@"){
+            return "invalid email id "
+        }
+        if _pass.count < 6 {
+              return "too short "
+        }
+        
+            return  nil
+       // return ""
+    }
+
+   }
+---------------------------------------------------------------------------
