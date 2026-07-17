@@ -1,0 +1,25 @@
+Modifiers
+Modifiers enable you to alter the appearance or behaviour of views. 
+You can chain modifiers together to customize views. 
+For instance, to change the text colour of a label:
+
+Stacks
+SwiftUI provides three types of stacks: 
+VStack (vertical), 
+HStack (horizontal), 
+and ZStack (z-axis).
+Stacks are employed to arrange views in a 
+structured manner. For example, to create a vertical stack of buttons:
+
+Views
+In SwiftUI, every element is a view. A view represents a user interface component,
+such as a button, label, or an entire screen. 
+Views can be composed of other views,allowing you to build intricate interfaces
+from basic elements.
+
+
+State
+State variables facilitate the creation of dynamic views that respond
+to user input or changing data. For example, to create a counter that
+increments when a button is pressed:
+
